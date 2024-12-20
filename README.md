@@ -1,13 +1,13 @@
 # Infinite.Tech Backend
 
-Welcome to Infinite.Tech, an all-in-one multimodal AI platform designed to harness infinite tools for generating dynamic, intelligent applications. This backend repository powers Infinite.Tech, offering APIs for integration and creative prompt engineering across diverse data forms.
+Welcome to the **Infinite.Tech Backend**, a robust API platform enabling the generation of dynamic, multimodal AI-driven applications. This backend integrates multiple AI tools to create intelligent, interactive experiences and supports advanced content generation across diverse data modalities.
 
-## Features
+## Key Features
 
-- **Multimodal AI Integration**: Connect with various AI services including Ollama, OpenAI, Anyscale, and Mistral to leverage cutting-edge AI technologies.
-- **Dynamic Content Generation**: Utilize AI-driven engines to generate text, images, tables, maps, and more based on user inputs.
-- **Extensive API Coverage**: Integrate with APIs for documents, images, tables, code, maps, graphs & charts, calendars, and more.
-- **Scalable and Secure**: Built on FastAPI, known for its high performance, scalability, and support for asynchronous tasks.
+- **Multimodal AI Integration**: Seamlessly connect with leading AI providers like Ollama, OpenAI, Anyscale, and Mistral to unlock diverse AI capabilities.
+- **Dynamic Content Creation**: Generate text, images, tables, maps, and other content using customized prompts and modes.
+- **Customizable Modes**: Add new modes and tailor prompt handling with minimal setup.
+- **Scalable Architecture**: Built on FastAPI for high performance and support for asynchronous operations.
 
 ## Getting Started
 
@@ -15,102 +15,114 @@ Welcome to Infinite.Tech, an all-in-one multimodal AI platform designed to harne
 
 - Python 3.8 or higher
 - FastAPI
-- Uvicorn (as ASGI server)
+- Uvicorn (ASGI server)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/infinite-tech-backend.git
+   cd infinite-tech-backend
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 ### Running the Server
-**For Mac Users:**
 
-You can easily start the server using the provided `start.sh` script. Simply run it from the terminal:
+#### Mac/Linux Users:
+Run the provided `start.sh` script:
 
 ```bash
-sh start_server.sh
+sh start.sh
 ```
 
-**For Windows Users:**
-
-You can easily start the server using the provided `start.bat` script. Simply double-click the file or run it from the command prompt:
+#### Windows Users:
+Execute the `start.bat` script by double-clicking it or running in the terminal:
 
 ```bash
 start.bat
 ```
 
-**For Unix-based Systems:**
+#### General Command:
+Alternatively, you can run the server manually:
+
 ```bash
 uvicorn app:app --reload
 ```
 
-This script executes the following commands to start the FastAPI server using Uvicorn with auto-reload enabled for development:
+The backend will be available at `http://localhost:8000/`. Use the `--reload` flag during development for auto-reloading upon changes.
 
-```batch
-@echo off
-python -m uvicorn app:app --reload
-pause
-```
+## API Endpoints
 
+### Health Check
+- **`GET /`**: Confirms the server is running.
 
-This will serve the backend at `http://localhost:8000/`. The `--reload` flag allows for automatic reloads during development for immediate updates.
+### List Available Modes
+- **`GET /modes`**: Retrieves all available modes from the configuration directory.
 
-## Usage
+### Generate Content Section
+- **`POST /generate_section`**: Generates content based on the input prompt, selected mode, and AI model.
 
-Explore the following endpoints:
-
-- `GET /`: Verify server operation.
-- `GET /modes`: Retrieve a list of available modes.
-- `POST /generate_section`: Submit custom content generation requests.
-
-## Examples
-
-### Get Modes
-
+#### Example Request:
 ```bash
-curl -X GET "http://localhost:8000/modes" -H  "accept: application/json"
+curl -X POST "http://localhost:8000/generate_section" \
+-H "accept: application/json" \
+-H "Content-Type: application/json" \
+-d '{
+  "prompt": "Describe the benefits of regular exercise.",
+  "model": "llama3.1:latest",
+  "mode": "general_generation"
+}'
 ```
 
-### Generate Section
-```bash
-curl -X POST "http://localhost:8000/generate_section" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"mode\":post,\"prompt\":\"Write a paragraph about the benefits of exercise.\",\"provider\":ollama,\"model\":\"llama3.1:latest\"}"
-```
-
-## Adding New Modes
-
-To add a new mode, create a new file in the `modes/instructions` directory with the following structure:
+### Adding New Modes
+To create a new mode, add a markdown file in the `modes/instructions` directory. Use the following structure:
 
 ```markdown
 # Mode Name
 
 ## Overview
-Description of the mode and its functionality.
+Detailed description of the mode.
 
 ## Example
-Provide an example of how to use the mode.
+Usage examples for the mode.
 
 ## Response
-Provide a sample response format.
+Sample response format.
 ```
-
-
 
 ## Development
 
-Contributions are welcome! To contribute:
+Contributions are welcome! Follow these steps to contribute:
 
 1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit (`git commit -am 'Add some feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a new Pull Request.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-branch
+   ```
+3. Implement your changes and commit:
+   ```bash
+   git commit -am 'Add some feature'
+   ```
+4. Push the branch:
+   ```bash
+   git push origin feature-branch
+   ```
+5. Open a Pull Request for review.
 
 ## License
 
 - **Backend**: AGPL-3.0
 - **Frontend**: Proprietary
 
-Ensure compliance with licensing terms when using or distributing this software.
+Please adhere to licensing terms for usage and distribution.
 
 ## Support
 
-For issues, questions, or requests, please open an issue on this repository.
+For questions, issues, or feature requests, please open an issue on this repository.
 
 ## About
 
-Infinite.Tech is developed by Infinite Tech with the mission to democratize AI technology and make powerful tools accessible to a broad audience.
+Infinite.Tech is committed to democratizing AI technology by creating accessible, powerful tools that enable innovation across industries. This backend is a cornerstone of that mission, supporting seamless integration and content generation for developers, businesses, and creative professionals alike.
